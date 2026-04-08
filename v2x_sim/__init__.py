@@ -1,7 +1,15 @@
 """V2X communication simulator skeleton package."""
 
 from .baseline import BaselinePolicy
-from .communication_model import CommunicationDecision, CommunicationMode, CommunicationModel
+from .communication_model import (
+    CommunicationDecision,
+    CommunicationMode,
+    CommunicationModel,
+    CommunicationParameters,
+    CommunicationResult,
+    simulate_direct,
+    simulate_infrastructure,
+)
 from .context_builder import (
     ActorState,
     Context,
@@ -27,6 +35,8 @@ __all__ = [
     "CommunicationDecision",
     "CommunicationMode",
     "CommunicationModel",
+    "CommunicationParameters",
+    "CommunicationResult",
     "Context",
     "ContextBuilder",
     "DangerAssessment",
@@ -43,4 +53,6 @@ __all__ = [
     "compute_distance",
     "assess_proximity_danger",
     "euclidean_distance",
+    "simulate_direct",
+    "simulate_infrastructure",
 ]
