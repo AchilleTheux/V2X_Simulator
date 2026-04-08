@@ -2,7 +2,14 @@
 
 from .baseline import BaselinePolicy
 from .communication_model import CommunicationDecision, CommunicationMode, CommunicationModel
-from .context_builder import ActorState, ContextBuilder, SimulationContext
+from .context_builder import (
+    ActorState,
+    Context,
+    ContextBuilder,
+    SimulationContext,
+    build_context,
+    compute_distance,
+)
 from .danger_detector import (
     DangerAssessment,
     DangerDetector,
@@ -20,6 +27,7 @@ __all__ = [
     "CommunicationDecision",
     "CommunicationMode",
     "CommunicationModel",
+    "Context",
     "ContextBuilder",
     "DangerAssessment",
     "DangerDetector",
@@ -31,6 +39,8 @@ __all__ = [
     "SumoConfig",
     "SumoRunner",
     "ThompsonPolicy",
+    "build_context",
+    "compute_distance",
     "assess_proximity_danger",
     "euclidean_distance",
 ]
