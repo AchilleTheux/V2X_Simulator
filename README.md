@@ -26,7 +26,7 @@ Ce qui reste à faire ensuite : brancher toute la chaîne dans une boucle unique
 - `v2x_sim/baseline.py` : stratégies baseline (`AlwaysDirect`, `AlwaysInfrastructure`, `ThresholdHeuristic`) + interface commune.
 - `v2x_sim/thompson.py` : squelette Thompson Sampling pour futur MAB.
 - `v2x_sim/metrics.py` : collecte de métriques de simulation.
-- `v2x_sim/main.py` : démo TraCI (affichage propre des acteurs à chaque pas).
+- `v2x_sim/main.py` : boucle de simulation complète (sans MAB) avec stratégie, communication, reward et résumé final.
 - `scenarios/minimal_v2x/` : scénario SUMO minimal reproductible.
 - `scenarios/rich_v2x/` : scénario SUMO plus riche (intersection, multi-véhicules, multi-VRU).
 - `tests/` : tests unitaires `pytest`.
@@ -101,6 +101,33 @@ Avec interface graphique :
 ```bash
 python -m v2x_sim.main --scenario scenarios/minimal_v2x/scenario.sumocfg --steps 50 --gui
 ```
+
+## Boucle complète (sans MAB)
+
+Stratégies disponibles :
+
+- `always_direct`
+- `always_infrastructure`
+- `threshold`
+
+Exemple sur le scénario riche :
+
+```bash
+python -m v2x_sim.main \
+  --scenario scenarios/rich_v2x/scenario.sumocfg \
+  --steps 200 \
+  --strategy threshold \
+  --danger-distance-m 8 \
+  --reward-deadline-ms 120
+```
+
+Résumé final affiché :
+
+- nombre d'alertes,
+- succès,
+- échecs,
+- latence moyenne,
+- reward cumulée.
 
 ## Tests
 

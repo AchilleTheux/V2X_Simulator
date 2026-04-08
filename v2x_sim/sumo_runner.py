@@ -19,6 +19,7 @@ class SumoConfig:
     scenario_file: str
     use_gui: bool = False
     step_length: float | None = 0.1
+    traci_port: int | None = None
     additional_args: tuple[str, ...] = field(default_factory=tuple)
 
 
@@ -65,9 +66,14 @@ class SumoRunner:
 
         traci = self._traci or self._load_traci()
         command = self._build_sumo_command(scenario_path)
+        port = self._resolve_traci_port(traci)
 
         try:
-            traci.start(command)
+            try:
+                traci.start(command, port=port, numRetries=3)
+            except TypeError:
+                # Compatibility path for mocked/simple TraCI stubs in tests.
+                traci.start(command)
         except Exception as exc:  # pragma: no cover - depends on runtime SUMO env
             raise RuntimeError(
                 f"Failed to start SUMO with command: {' '.join(command)}"
@@ -126,6 +132,21 @@ class SumoRunner:
         if not self._is_running or self._traci is None:
             raise RuntimeError("Simulation is not running. Call start() first.")
         return self._traci
+
+    def _resolve_traci_port(self, traci: Any) -> int:
+        if self.config.traci_port is not None:
+            return self.config.traci_port
+
+        if hasattr(traci, "getFreeSocketPort"):
+            try:
+                free_port = traci.getFreeSocketPort()
+                if isinstance(free_port, int) and free_port > 0:
+                    return free_port
+            except Exception:
+                pass
+
+        # Safe fallback for environments where free-port probing fails.
+        return 8813
 
     @staticmethod
     def _load_traci() -> Any:
