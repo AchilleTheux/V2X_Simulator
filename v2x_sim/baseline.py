@@ -16,8 +16,18 @@ class DecisionStrategy(Protocol):
     def choose_mode(self, context: Context) -> CommunicationMode:
         """Return the communication mode selected for the given context."""
 
+    def update(self, action: CommunicationMode, reward: int) -> None:
+        """Update strategy from binary reward (1=success in time, 0=otherwise)."""
 
-class AlwaysDirectStrategy:
+
+class _NoLearningStrategy:
+    """Mixin for strategies that do not learn from feedback."""
+
+    def update(self, action: CommunicationMode, reward: int) -> None:
+        _ = (action, reward)
+
+
+class AlwaysDirectStrategy(_NoLearningStrategy):
     """Always chooses direct VRU <-> vehicle communication."""
 
     def choose_mode(self, context: Context) -> CommunicationMode:
@@ -25,7 +35,7 @@ class AlwaysDirectStrategy:
         return CommunicationMode.DIRECT
 
 
-class AlwaysInfrastructureStrategy:
+class AlwaysInfrastructureStrategy(_NoLearningStrategy):
     """Always chooses infrastructure (RSU) communication."""
 
     def choose_mode(self, context: Context) -> CommunicationMode:
@@ -34,7 +44,7 @@ class AlwaysInfrastructureStrategy:
 
 
 @dataclass(slots=True)
-class ThresholdHeuristicStrategy:
+class ThresholdHeuristicStrategy(_NoLearningStrategy):
     """Simple readable heuristic based on context features.
 
     Decision rule:

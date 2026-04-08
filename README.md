@@ -109,7 +109,8 @@ Stratégies disponibles :
 
 - `always_direct`
 - `always_infrastructure`
-- `threshold`
+- `threshold_heuristic` (alias compatible: `threshold`)
+- `thompson`
 
 Exemple sur le scénario riche :
 
@@ -117,10 +118,19 @@ Exemple sur le scénario riche :
 python -m v2x_sim.main \
   --scenario scenarios/rich_v2x/scenario.sumocfg \
   --steps 200 \
-  --strategy threshold \
+  --strategy threshold_heuristic \
   --danger-distance-m 8 \
   --reward-deadline-ms 120 \
   --export-csv /tmp/v2x_run_threshold.csv
+```
+
+Exemples de comparaison (mêmes paramètres, stratégies différentes) :
+
+```bash
+python -m v2x_sim.main --scenario scenarios/rich_v2x/scenario.sumocfg --steps 200 --strategy always_direct --danger-distance-m 8 --reward-deadline-ms 120 --export-csv /tmp/v2x_always_direct.csv
+python -m v2x_sim.main --scenario scenarios/rich_v2x/scenario.sumocfg --steps 200 --strategy always_infrastructure --danger-distance-m 8 --reward-deadline-ms 120 --export-csv /tmp/v2x_always_infra.csv
+python -m v2x_sim.main --scenario scenarios/rich_v2x/scenario.sumocfg --steps 200 --strategy threshold_heuristic --danger-distance-m 8 --reward-deadline-ms 120 --export-csv /tmp/v2x_threshold.csv
+python -m v2x_sim.main --scenario scenarios/rich_v2x/scenario.sumocfg --steps 200 --strategy thompson --danger-distance-m 8 --reward-deadline-ms 120 --export-csv /tmp/v2x_thompson.csv
 ```
 
 Résumé final affiché :

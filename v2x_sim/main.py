@@ -25,8 +25,15 @@ from .logger import build_logger, log_alert_record, log_metrics_summary
 from .metrics import AlertMetricsRecord, ContextSummary, MetricsCollector
 from .reward import compute_reward
 from .sumo_runner import RoadUserState, SumoConfig, SumoRunner
+from .thompson import ThompsonSamplingStrategy
 
-StrategyName = Literal["always_direct", "always_infrastructure", "threshold"]
+StrategyName = Literal[
+    "always_direct",
+    "always_infrastructure",
+    "threshold",
+    "threshold_heuristic",
+    "thompson",
+]
 
 
 def parse_args() -> argparse.Namespace:
@@ -47,8 +54,14 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--strategy",
-        choices=["always_direct", "always_infrastructure", "threshold"],
-        default="threshold",
+        choices=[
+            "always_direct",
+            "always_infrastructure",
+            "threshold",
+            "threshold_heuristic",
+            "thompson",
+        ],
+        default="threshold_heuristic",
         help="Communication decision strategy to apply when danger is detected",
     )
     parser.add_argument(
@@ -83,15 +96,26 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def build_strategy(name: StrategyName, threshold_m: float) -> DecisionStrategy:
+def build_strategy(
+    name: StrategyName, threshold_m: float, rng: random.Random | None = None
+) -> DecisionStrategy:
     """Return a strategy instance from CLI strategy name."""
     if name == "always_direct":
         return AlwaysDirectStrategy()
     if name == "always_infrastructure":
         return AlwaysInfrastructureStrategy()
-    if name == "threshold":
+    if name in {"threshold", "threshold_heuristic"}:
         return ThresholdHeuristicStrategy(direct_distance_threshold_m=threshold_m)
+    if name == "thompson":
+        return ThompsonSamplingStrategy(rng=rng)
     raise ValueError(f"Unknown strategy: {name}")
+
+
+def _binary_feedback_from_result(result: CommunicationResult, deadline_ms: float) -> int:
+    """Return binary feedback for bandit update: 1 if success before deadline else 0."""
+    if result.success and result.latency_ms <= deadline_ms:
+        return 1
+    return 0
 
 
 def _simulate_with_mode(
@@ -128,12 +152,14 @@ def run() -> int:
     args = parse_args()
     log = build_logger()
 
+    strategy_rng = random.Random(args.seed + 1)
     strategy = build_strategy(
         name=args.strategy,
         threshold_m=args.heuristic_distance_threshold_m,
+        rng=strategy_rng,
     )
     context_builder = ContextBuilder(danger_distance_m=args.danger_distance_m)
-    rng = random.Random(args.seed)
+    comm_rng = random.Random(args.seed)
     comm_params = CommunicationParameters(reward_deadline_ms=args.reward_deadline_ms)
 
     runner = SumoRunner(
@@ -192,9 +218,14 @@ def run() -> int:
                         simulation_time=snapshot.time_s,
                         vru_state=vru_state,
                         vehicle_state=vehicle_state,
-                        rng=rng,
+                        rng=comm_rng,
                         comm_params=comm_params,
                     )
+
+                    binary_feedback = _binary_feedback_from_result(
+                        result=result, deadline_ms=comm_params.reward_deadline_ms
+                    )
+                    strategy.update(mode, binary_feedback)
 
                     record = AlertMetricsRecord(
                         time_s=snapshot.time_s,

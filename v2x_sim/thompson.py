@@ -16,6 +16,7 @@ import random
 from typing import Mapping
 
 from .communication_model import CommunicationMode
+from .context_builder import Context
 
 
 @dataclass(slots=True)
@@ -68,6 +69,11 @@ class ThompsonSamplingStrategy:
         if direct_sample >= infra_sample:
             return CommunicationMode.DIRECT
         return CommunicationMode.RSU
+
+    def choose_mode(self, context: Context) -> CommunicationMode:
+        """Compatibility hook with the simulator strategy interface."""
+        _ = context
+        return self.select_action()
 
     def update(self, action: CommunicationMode, reward: int | bool) -> None:
         """Update posterior parameters from observed binary reward."""
