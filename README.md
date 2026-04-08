@@ -10,6 +10,7 @@ et un véhicule, avec deux modes de communication : direct ou via RSU.
 - Construction d'un contexte de décision (`Context`) implémentée.
 - Détection de proximité dangereuse (distance euclidienne + seuil) implémentée.
 - Modèle de communication simplifié (direct / infrastructure) implémenté.
+- Fonction de récompense temporelle (`compute_reward`) implémentée.
 - Base de tests `pytest` en place et verte.
 
 Ce qui reste à faire ensuite : brancher toute la chaîne dans une boucle unique
@@ -21,6 +22,7 @@ Ce qui reste à faire ensuite : brancher toute la chaîne dans une boucle unique
 - `v2x_sim/context_builder.py` : définit `Context` et construit un contexte décisionnel (distance, danger, rsu_available, rsu_load, obstacle_present).
 - `v2x_sim/danger_detector.py` : fonctions pures de détection de danger + détecteur par paires VRU/véhicule.
 - `v2x_sim/communication_model.py` : simulation paramétrable des communications directes et via RSU (`CommunicationResult`).
+- `v2x_sim/reward.py` : fonction de récompense basée sur succès/échec et respect d'une deadline.
 - `v2x_sim/baseline.py` : politique baseline simple par seuil de distance.
 - `v2x_sim/thompson.py` : squelette Thompson Sampling pour futur MAB.
 - `v2x_sim/metrics.py` : collecte de métriques de simulation.
@@ -96,3 +98,4 @@ La suite couvre notamment :
 - `context_builder` (construction + déterminisme),
 - `danger_detector` (distance, seuil, stabilité numérique),
 - `communication_model` (direct vs RSU, latence, échecs RSU indisponible).
+- `reward` (succès rapide, succès tardif, échec de transmission).

@@ -26,6 +26,7 @@ from .danger_detector import (
     euclidean_distance,
 )
 from .metrics import MetricsCollector
+from .reward import compute_reward
 from .sumo_runner import RoadUserState, SimulationStepSnapshot, SumoConfig, SumoRunner
 from .thompson import ThompsonPolicy
 
@@ -52,6 +53,7 @@ __all__ = [
     "build_context",
     "compute_distance",
     "assess_proximity_danger",
+    "compute_reward",
     "euclidean_distance",
     "simulate_direct",
     "simulate_infrastructure",

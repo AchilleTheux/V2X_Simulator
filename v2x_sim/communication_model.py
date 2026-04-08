@@ -13,6 +13,7 @@ from enum import Enum
 from typing import Protocol
 
 from .context_builder import Context
+from .reward import compute_reward
 
 
 class RandomLike(Protocol):
@@ -56,6 +57,7 @@ class CommunicationParameters:
 
     reward_success_value: float = 1.0
     reward_latency_cost_per_ms: float = 0.002
+    reward_deadline_ms: float = 100.0
 
 
 @dataclass(slots=True)
@@ -97,15 +99,15 @@ def simulate_direct(
     latency_ms = max(1.0, latency_ms)
 
     success = rng.random() < success_probability
-    reward = _compute_reward(success=success, latency_ms=latency_ms, params=p)
-
-    return CommunicationResult(
+    result = CommunicationResult(
         mode_chosen=CommunicationMode.DIRECT,
         success=success,
         latency_ms=latency_ms,
         success_probability=success_probability,
-        reward=reward,
+        reward=0.0,
     )
+    result.reward = compute_reward(result=result, deadline_ms=p.reward_deadline_ms)
+    return result
 
 
 def simulate_infrastructure(
@@ -118,14 +120,15 @@ def simulate_infrastructure(
 
     if not context.rsu_available:
         latency_ms = p.rsu_unavailable_latency_ms + rng.uniform(0.0, p.rsu_latency_jitter_ms)
-        reward = _compute_reward(success=False, latency_ms=latency_ms, params=p)
-        return CommunicationResult(
+        result = CommunicationResult(
             mode_chosen=CommunicationMode.RSU,
             success=False,
             latency_ms=latency_ms,
             success_probability=0.0,
-            reward=reward,
+            reward=0.0,
         )
+        result.reward = compute_reward(result=result, deadline_ms=p.reward_deadline_ms)
+        return result
 
     success_probability = p.rsu_base_success_prob - p.rsu_load_success_slope * context.rsu_load
     if context.obstacle_present:
@@ -139,15 +142,15 @@ def simulate_infrastructure(
     latency_ms = max(1.0, latency_ms)
 
     success = rng.random() < success_probability
-    reward = _compute_reward(success=success, latency_ms=latency_ms, params=p)
-
-    return CommunicationResult(
+    result = CommunicationResult(
         mode_chosen=CommunicationMode.RSU,
         success=success,
         latency_ms=latency_ms,
         success_probability=success_probability,
-        reward=reward,
+        reward=0.0,
     )
+    result.reward = compute_reward(result=result, deadline_ms=p.reward_deadline_ms)
+    return result
 
 
 class CommunicationModel:
@@ -193,12 +196,6 @@ def _expected_reward_rsu(*, context: Context, params: CommunicationParameters) -
         latency += params.rsu_obstacle_latency_penalty_ms
 
     return p_success * params.reward_success_value - latency * params.reward_latency_cost_per_ms
-
-
-def _compute_reward(*, success: bool, latency_ms: float, params: CommunicationParameters) -> float:
-    success_part = params.reward_success_value if success else 0.0
-    latency_cost = latency_ms * params.reward_latency_cost_per_ms
-    return success_part - latency_cost
 
 
 def _clamp(value: float, min_value: float, max_value: float) -> float:
