@@ -1,6 +1,12 @@
 """V2X communication simulator skeleton package."""
 
-from .baseline import BaselinePolicy
+from .baseline import (
+    AlwaysDirectStrategy,
+    AlwaysInfrastructureStrategy,
+    BaselinePolicy,
+    DecisionStrategy,
+    ThresholdHeuristicStrategy,
+)
 from .communication_model import (
     CommunicationDecision,
     CommunicationMode,
@@ -32,7 +38,10 @@ from .thompson import ThompsonPolicy
 
 __all__ = [
     "ActorState",
+    "AlwaysDirectStrategy",
+    "AlwaysInfrastructureStrategy",
     "BaselinePolicy",
+    "DecisionStrategy",
     "CommunicationDecision",
     "CommunicationMode",
     "CommunicationModel",
@@ -50,6 +59,7 @@ __all__ = [
     "SumoConfig",
     "SumoRunner",
     "ThompsonPolicy",
+    "ThresholdHeuristicStrategy",
     "build_context",
     "compute_distance",
     "assess_proximity_danger",

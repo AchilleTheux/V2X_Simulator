@@ -23,7 +23,7 @@ Ce qui reste à faire ensuite : brancher toute la chaîne dans une boucle unique
 - `v2x_sim/danger_detector.py` : fonctions pures de détection de danger + détecteur par paires VRU/véhicule.
 - `v2x_sim/communication_model.py` : simulation paramétrable des communications directes et via RSU (`CommunicationResult`).
 - `v2x_sim/reward.py` : fonction de récompense basée sur succès/échec et respect d'une deadline.
-- `v2x_sim/baseline.py` : politique baseline simple par seuil de distance.
+- `v2x_sim/baseline.py` : stratégies baseline (`AlwaysDirect`, `AlwaysInfrastructure`, `ThresholdHeuristic`) + interface commune.
 - `v2x_sim/thompson.py` : squelette Thompson Sampling pour futur MAB.
 - `v2x_sim/metrics.py` : collecte de métriques de simulation.
 - `v2x_sim/main.py` : démo TraCI (affichage propre des acteurs à chaque pas).
