@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Car edges (passenger only) + pedestrian-only corridors.
+  Keeping permissions explicit makes actor filtering easy in TraCI.
+-->
+<edges>
+    <!-- Car intersection -->
+    <edge id="e_WC" from="nW" to="nC" priority="2" numLanes="1" speed="13.89" allow="passenger"/>
+    <edge id="e_CE" from="nC" to="nE" priority="2" numLanes="1" speed="13.89" allow="passenger"/>
+    <edge id="e_EC" from="nE" to="nC" priority="2" numLanes="1" speed="13.89" allow="passenger"/>
+    <edge id="e_CW" from="nC" to="nW" priority="2" numLanes="1" speed="13.89" allow="passenger"/>
+
+    <edge id="e_SC" from="nS" to="nC" priority="2" numLanes="1" speed="11.11" allow="passenger"/>
+    <edge id="e_CN" from="nC" to="nN" priority="2" numLanes="1" speed="11.11" allow="passenger"/>
+    <edge id="e_NC" from="nN" to="nC" priority="2" numLanes="1" speed="11.11" allow="passenger"/>
+    <edge id="e_CS" from="nC" to="nS" priority="2" numLanes="1" speed="11.11" allow="passenger"/>
+
+    <!-- VRU corridors -->
+    <edge id="e_pSN" from="pS" to="pC" priority="1" numLanes="1" speed="1.60" allow="pedestrian"/>
+    <edge id="e_pNS" from="pC" to="pN" priority="1" numLanes="1" speed="1.60" allow="pedestrian"/>
+
+    <edge id="e_qWE" from="qW" to="qC" priority="1" numLanes="1" speed="1.60" allow="pedestrian"/>
+    <edge id="e_qEW" from="qC" to="qE" priority="1" numLanes="1" speed="1.60" allow="pedestrian"/>
+</edges>

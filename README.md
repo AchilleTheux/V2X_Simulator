@@ -28,6 +28,7 @@ Ce qui reste à faire ensuite : brancher toute la chaîne dans une boucle unique
 - `v2x_sim/metrics.py` : collecte de métriques de simulation.
 - `v2x_sim/main.py` : démo TraCI (affichage propre des acteurs à chaque pas).
 - `scenarios/minimal_v2x/` : scénario SUMO minimal reproductible.
+- `scenarios/rich_v2x/` : scénario SUMO plus riche (intersection, multi-véhicules, multi-VRU).
 - `tests/` : tests unitaires `pytest`.
 
 ## Installation (Ubuntu)
@@ -65,6 +66,23 @@ bash generate_network.sh
 ```
 
 Lancer SUMO directement :
+
+```bash
+sumo -c scenario.sumocfg
+```
+
+## Scenario SUMO riche
+
+Dossier : `scenarios/rich_v2x/`
+
+Générer le réseau :
+
+```bash
+cd scenarios/rich_v2x
+bash generate_network.sh
+```
+
+Lancer le scénario :
 
 ```bash
 sumo -c scenario.sumocfg

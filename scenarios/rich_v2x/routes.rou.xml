@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Rich deterministic traffic set for V2X experiments.
+
+  Vehicles:
+  - veh_0: W -> E (straight)
+  - veh_1: S -> N (straight)
+  - veh_2: E -> W (straight)
+  - veh_3: W -> S (turn)
+
+  VRUs:
+  - ped_0: corridor pS -> pN
+  - ped_1: corridor qW -> qE
+  - cyc_0: same corridor qW -> qE, faster speed to emulate a cyclist
+
+  The schedule is designed so several close-approach situations happen near
+  the central area during the first ~20 seconds.
+-->
+<routes>
+    <vType
+        id="car_fast"
+        accel="2.5"
+        decel="4.5"
+        sigma="0.0"
+        length="5.0"
+        maxSpeed="13.89"
+        speedFactor="1.0"
+        speedDev="0.0"
+    />
+    <vType
+        id="car_urban"
+        accel="2.0"
+        decel="4.5"
+        sigma="0.0"
+        length="5.0"
+        maxSpeed="11.11"
+        speedFactor="1.0"
+        speedDev="0.0"
+    />
+
+    <route id="r_w_to_e" edges="e_WC e_CE"/>
+    <route id="r_s_to_n" edges="e_SC e_CN"/>
+    <route id="r_e_to_w" edges="e_EC e_CW"/>
+    <route id="r_w_to_s" edges="e_WC e_CS"/>
+
+    <!-- IMPORTANT: actors are sorted by departure time for deterministic loading. -->
+    <vehicle id="veh_0" type="car_fast" route="r_w_to_e" depart="0.0" departLane="0" departPos="0.0" departSpeed="13.89"/>
+
+    <person id="ped_0" depart="1.0" departPos="0.0">
+        <walk edges="e_pSN e_pNS" speed="1.40"/>
+    </person>
+
+    <vehicle id="veh_1" type="car_urban" route="r_s_to_n" depart="2.0" departLane="0" departPos="0.0" departSpeed="11.11"/>
+    <vehicle id="veh_3" type="car_urban" route="r_w_to_s" depart="4.0" departLane="0" departPos="0.0" departSpeed="10.00"/>
+
+    <person id="cyc_0" depart="5.0" departPos="0.0">
+        <walk edges="e_qWE e_qEW" speed="3.50"/>
+    </person>
+
+    <vehicle id="veh_2" type="car_urban" route="r_e_to_w" depart="6.0" departLane="0" departPos="0.0" departSpeed="11.11"/>
+
+    <person id="ped_1" depart="7.0" departPos="0.0">
+        <walk edges="e_qWE e_qEW" speed="1.60"/>
+    </person>
+</routes>

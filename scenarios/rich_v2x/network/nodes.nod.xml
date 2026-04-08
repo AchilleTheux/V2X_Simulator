@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Rich deterministic V2X test network.
+
+  Layout:
+  - 4-way car intersection centered at nC (0, 0)
+  - two pedestrian corridors crossing close to the intersection
+
+  Goal:
+  create multiple predictable proximity events between vehicles and VRUs.
+-->
+<nodes>
+    <!-- Car road nodes -->
+    <node id="nW" x="-120.0" y="0.0"/>
+    <node id="nE" x="120.0" y="0.0"/>
+    <node id="nS" x="0.0" y="-120.0"/>
+    <node id="nN" x="0.0" y="120.0"/>
+    <node id="nC" x="0.0" y="0.0" type="priority"/>
+
+    <!-- Pedestrian corridor #1 (north/south, shifted east by 5 m) -->
+    <node id="pS" x="5.0" y="-20.0"/>
+    <node id="pC" x="5.0" y="0.0"/>
+    <node id="pN" x="5.0" y="20.0"/>
+
+    <!-- Pedestrian corridor #2 (west/east, shifted south by 6 m) -->
+    <node id="qW" x="-20.0" y="-6.0"/>
+    <node id="qC" x="0.0" y="-6.0"/>
+    <node id="qE" x="20.0" y="-6.0"/>
+</nodes>

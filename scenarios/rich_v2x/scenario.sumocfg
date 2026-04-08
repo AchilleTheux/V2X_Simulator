@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <input>
+        <net-file value="network/network.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="60"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <random_number>
+        <!-- Fixed seed keeps scenario reproducible. -->
+        <seed value="42"/>
+    </random_number>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+</configuration>
