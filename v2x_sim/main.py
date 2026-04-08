@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
 import random
 from typing import Literal
 
@@ -22,25 +21,12 @@ from .communication_model import (
 )
 from .context_builder import ContextBuilder
 from .danger_detector import assess_proximity_danger
-from .logger import build_logger
+from .logger import build_logger, log_alert_record, log_metrics_summary
+from .metrics import AlertMetricsRecord, ContextSummary, MetricsCollector
 from .reward import compute_reward
 from .sumo_runner import RoadUserState, SumoConfig, SumoRunner
 
 StrategyName = Literal["always_direct", "always_infrastructure", "threshold"]
-
-
-@dataclass(slots=True)
-class AlertRecord:
-    """Stores one dangerous interaction and communication outcome."""
-
-    time_s: float
-    vru_id: str
-    vehicle_id: str
-    distance_m: float
-    mode: CommunicationMode
-    success: bool
-    latency_ms: float
-    reward: float
 
 
 def parse_args() -> argparse.Namespace:
@@ -89,6 +75,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Log one line per danger alert and communication result",
     )
+    parser.add_argument(
+        "--export-csv",
+        default="",
+        help="Optional path to export alert-level records as CSV",
+    )
     return parser.parse_args()
 
 
@@ -101,24 +92,6 @@ def build_strategy(name: StrategyName, threshold_m: float) -> DecisionStrategy:
     if name == "threshold":
         return ThresholdHeuristicStrategy(direct_distance_threshold_m=threshold_m)
     raise ValueError(f"Unknown strategy: {name}")
-
-
-def _summarize_alerts(records: list[AlertRecord]) -> dict[str, float | int]:
-    total_alerts = len(records)
-    successes = sum(1 for record in records if record.success)
-    failures = total_alerts - successes
-    average_latency_ms = (
-        sum(record.latency_ms for record in records) / total_alerts if total_alerts > 0 else 0.0
-    )
-    cumulative_reward = sum(record.reward for record in records)
-
-    return {
-        "alerts": total_alerts,
-        "successes": successes,
-        "failures": failures,
-        "avg_latency_ms": average_latency_ms,
-        "cumulative_reward": cumulative_reward,
-    }
 
 
 def _simulate_with_mode(
@@ -171,7 +144,7 @@ def run() -> int:
         )
     )
 
-    records: list[AlertRecord] = []
+    metrics = MetricsCollector()
 
     try:
         runner.start()
@@ -189,6 +162,7 @@ def run() -> int:
     try:
         for _ in range(args.steps):
             snapshot = runner.step()
+            metrics.record_step()
 
             for vru_id, vru_state in snapshot.pedestrians.items():
                 for vehicle_id, vehicle_state in snapshot.vehicles.items():
@@ -222,43 +196,39 @@ def run() -> int:
                         comm_params=comm_params,
                     )
 
-                    record = AlertRecord(
+                    record = AlertMetricsRecord(
                         time_s=snapshot.time_s,
-                        vru_id=vru_id,
-                        vehicle_id=vehicle_id,
-                        distance_m=distance_m,
-                        mode=result.mode_chosen,
+                        context=ContextSummary(
+                            distance_m=distance_m,
+                            danger=True,
+                            rsu_available=decision_context.rsu_available,
+                            rsu_load=decision_context.rsu_load,
+                            obstacle_present=decision_context.obstacle_present,
+                        ),
+                        strategy=args.strategy,
+                        mode_chosen=result.mode_chosen,
                         success=result.success,
                         latency_ms=result.latency_ms,
                         reward=result.reward,
+                        vru_id=vru_id,
+                        vehicle_id=vehicle_id,
                     )
-                    records.append(record)
+                    metrics.record_alert(record)
 
                     if args.log_alerts:
-                        log.info(
-                            "ALERT t=%.2f | %s-%s | d=%.2f m | mode=%s | success=%s | latency=%.1f ms | reward=%.3f",
-                            record.time_s,
-                            record.vru_id,
-                            record.vehicle_id,
-                            record.distance_m,
-                            record.mode.value,
-                            record.success,
-                            record.latency_ms,
-                            record.reward,
-                        )
+                        log_alert_record(log, record)
     except RuntimeError as exc:
         log.error("Simulation error: %s", exc)
         return 1
     finally:
         runner.stop()
 
-    summary = _summarize_alerts(records)
-    log.info("Simulation summary")
-    log.info("  alerts: %d", summary["alerts"])
-    log.info("  successes: %d", summary["successes"])
-    log.info("  failures: %d", summary["failures"])
-    log.info("  avg_latency_ms: %.2f", summary["avg_latency_ms"])
-    log.info("  cumulative_reward: %.3f", summary["cumulative_reward"])
+    summary = metrics.aggregate()
+    log_metrics_summary(log, summary)
+
+    if args.export_csv:
+        output_path = metrics.export_csv(args.export_csv)
+        log.info("  csv_export: %s", output_path)
 
     return 0
 

@@ -31,7 +31,15 @@ from .danger_detector import (
     assess_proximity_danger,
     euclidean_distance,
 )
-from .metrics import MetricsCollector
+from .logger import build_logger, log_alert_record, log_metrics_summary
+from .metrics import (
+    AlertMetricsRecord,
+    ContextSummary,
+    MetricsCollector,
+    MetricsSummary,
+    aggregate_alert_metrics,
+    export_alert_records_csv,
+)
 from .reward import compute_reward
 from .sumo_runner import RoadUserState, SimulationStepSnapshot, SumoConfig, SumoRunner
 from .thompson import ThompsonPolicy
@@ -48,11 +56,14 @@ __all__ = [
     "CommunicationParameters",
     "CommunicationResult",
     "Context",
+    "ContextSummary",
     "ContextBuilder",
     "DangerAssessment",
     "DangerDetector",
     "DangerEvent",
+    "AlertMetricsRecord",
     "MetricsCollector",
+    "MetricsSummary",
     "RoadUserState",
     "SimulationStepSnapshot",
     "SimulationContext",
@@ -63,8 +74,13 @@ __all__ = [
     "build_context",
     "compute_distance",
     "assess_proximity_danger",
+    "aggregate_alert_metrics",
+    "build_logger",
     "compute_reward",
     "euclidean_distance",
+    "export_alert_records_csv",
+    "log_alert_record",
+    "log_metrics_summary",
     "simulate_direct",
     "simulate_infrastructure",
 ]

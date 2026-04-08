@@ -24,8 +24,9 @@ Ce qui reste à faire ensuite : brancher toute la chaîne dans une boucle unique
 - `v2x_sim/communication_model.py` : simulation paramétrable des communications directes et via RSU (`CommunicationResult`).
 - `v2x_sim/reward.py` : fonction de récompense basée sur succès/échec et respect d'une deadline.
 - `v2x_sim/baseline.py` : stratégies baseline (`AlwaysDirect`, `AlwaysInfrastructure`, `ThresholdHeuristic`) + interface commune.
+- `v2x_sim/metrics.py` : enregistrement alertes, agrégation (succès/latence/reward/ratios), export CSV.
+- `v2x_sim/logger.py` : logging des alertes et résumés de métriques.
 - `v2x_sim/thompson.py` : squelette Thompson Sampling pour futur MAB.
-- `v2x_sim/metrics.py` : collecte de métriques de simulation.
 - `v2x_sim/main.py` : boucle de simulation complète (sans MAB) avec stratégie, communication, reward et résumé final.
 - `scenarios/minimal_v2x/` : scénario SUMO minimal reproductible.
 - `scenarios/rich_v2x/` : scénario SUMO plus riche (intersection, multi-véhicules, multi-VRU).
@@ -118,7 +119,8 @@ python -m v2x_sim.main \
   --steps 200 \
   --strategy threshold \
   --danger-distance-m 8 \
-  --reward-deadline-ms 120
+  --reward-deadline-ms 120 \
+  --export-csv /tmp/v2x_run_threshold.csv
 ```
 
 Résumé final affiché :
@@ -128,6 +130,7 @@ Résumé final affiché :
 - échecs,
 - latence moyenne,
 - reward cumulée.
+- ratio de choix direct / infrastructure.
 
 ## Tests
 
@@ -144,3 +147,4 @@ La suite couvre notamment :
 - `danger_detector` (distance, seuil, stabilité numérique),
 - `communication_model` (direct vs RSU, latence, échecs RSU indisponible).
 - `reward` (succès rapide, succès tardif, échec de transmission).
+- `metrics` (agrégation et export CSV).
