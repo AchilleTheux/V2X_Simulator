@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Mega-rich deterministic traffic plan.
+  - 20 vehicles (cars + buses)
+  - 16 VRUs (pedestrians + cyclist-like persons)
+  - deterministic departures and speeds
+-->
+<routes>
+    <vType id="car_fast" accel="2.6" decel="4.5" sigma="0.0" length="5.0" maxSpeed="13.89" speedFactor="1.0" speedDev="0.0"/>
+    <vType id="car_city" accel="2.0" decel="4.5" sigma="0.0" length="5.0" maxSpeed="11.11" speedFactor="1.0" speedDev="0.0"/>
+    <vType id="bus_type" accel="1.2" decel="3.5" sigma="0.0" length="12.0" maxSpeed="10.00" speedFactor="1.0" speedDev="0.0"/>
+
+    <!-- Vehicle routes -->
+    <route id="r_w1_e1" edges="e_W1_I11 e_I11_I12 e_I12_I13 e_I13_E1"/>
+    <route id="r_e1_w1" edges="e_E1_I13 e_I13_I12 e_I12_I11 e_I11_W1"/>
+    <route id="r_w2_e2" edges="e_W2_I21 e_I21_I22 e_I22_I23 e_I23_E2"/>
+    <route id="r_e2_w2" edges="e_E2_I23 e_I23_I22 e_I22_I21 e_I21_W2"/>
+    <route id="r_n1_s1" edges="e_N1_I11 e_I11_I21 e_I21_I31 e_I31_S1"/>
+    <route id="r_s1_n1" edges="e_S1_I31 e_I31_I21 e_I21_I11 e_I11_N1"/>
+    <route id="r_n2_s2" edges="e_N2_I12 e_I12_I22 e_I22_I32 e_I32_S2"/>
+    <route id="r_s2_n2" edges="e_S2_I32 e_I32_I22 e_I22_I12 e_I12_N2"/>
+    <route id="r_w3_n3" edges="e_W3_I31 e_I31_I32 e_I32_I33 e_I33_I23 e_I23_I13 e_I13_N3"/>
+    <route id="r_e3_n1" edges="e_E3_I33 e_I33_I32 e_I32_I31 e_I31_I21 e_I21_I11 e_I11_N1"/>
+    <route id="r_n3_w2" edges="e_N3_I13 e_I13_I12 e_I12_I11 e_I11_I21 e_I21_W2"/>
+    <route id="r_s3_e1" edges="e_S3_I33 e_I33_I23 e_I23_I13 e_I13_E1"/>
+    <route id="r_w1_s3" edges="e_W1_I11 e_I11_I12 e_I12_I13 e_I13_I23 e_I23_I33 e_I33_S3"/>
+    <route id="r_n2_e3" edges="e_N2_I12 e_I12_I22 e_I22_I32 e_I32_I33 e_I33_E3"/>
+    <route id="r_e2_s1" edges="e_E2_I23 e_I23_I22 e_I22_I21 e_I21_I31 e_I31_S1"/>
+    <route id="r_w2_n2" edges="e_W2_I21 e_I21_I22 e_I22_I12 e_I12_N2"/>
+    <route id="r_s2_w3" edges="e_S2_I32 e_I32_I31 e_I31_W3"/>
+    <route id="r_n1_e2" edges="e_N1_I11 e_I11_I12 e_I12_I22 e_I22_I23 e_I23_E2"/>
+    <route id="r_e1_s2" edges="e_E1_I13 e_I13_I12 e_I12_I22 e_I22_I32 e_I32_S2"/>
+    <route id="r_w3_e1" edges="e_W3_I31 e_I31_I21 e_I21_I11 e_I11_I12 e_I12_I13 e_I13_E1"/>
+
+    <!-- Departures are sorted for deterministic loading -->
+    <vehicle id="veh_00" type="car_fast" route="r_w1_e1" depart="0.0" departLane="0" departPos="0.0" departSpeed="13.89"/>
+    <person id="ped_00" depart="0.6" departPos="0.0"><walk edges="e_pHW_H1 e_H1_H2 e_H2_H3 e_H3_H4 e_H4_pHE" speed="1.40"/></person>
+
+    <vehicle id="veh_01" type="car_city" route="r_n1_s1" depart="1.2" departLane="0" departPos="0.0" departSpeed="11.11"/>
+    <person id="ped_01" depart="1.8" departPos="0.0"><walk edges="e_pVS_V1 e_V1_V2 e_V2_V3 e_V3_V4 e_V4_pVN" speed="1.45"/></person>
+
+    <vehicle id="veh_02" type="bus_type" route="r_e2_w2" depart="2.4" departLane="0" departPos="0.0" departSpeed="9.00"/>
+    <person id="cyc_00" depart="3.0" departPos="0.0"><walk edges="e_pDSW_D1 e_D1_PC e_PC_D3 e_D3_pDNE" speed="3.80"/></person>
+
+    <vehicle id="veh_03" type="car_city" route="r_s3_e1" depart="3.6" departLane="0" departPos="0.0" departSpeed="10.50"/>
+    <person id="ped_02" depart="4.2" departPos="0.0"><walk edges="e_pANW_A1 e_A1_PC e_PC_A3 e_A3_pASE" speed="1.35"/></person>
+
+    <vehicle id="veh_04" type="car_fast" route="r_w3_n3" depart="4.8" departLane="0" departPos="0.0" departSpeed="12.50"/>
+    <person id="ped_03" depart="5.4" departPos="0.0"><walk edges="e_pHE_H4 e_H4_H3 e_H3_H2 e_H2_H1 e_H1_pHW" speed="1.55"/></person>
+
+    <vehicle id="veh_05" type="car_city" route="r_n2_s2" depart="6.0" departLane="0" departPos="0.0" departSpeed="11.11"/>
+    <person id="cyc_01" depart="6.6" departPos="0.0"><walk edges="e_pDNE_D3 e_D3_PC e_PC_D1 e_D1_pDSW" speed="3.50"/></person>
+
+    <vehicle id="veh_06" type="bus_type" route="r_e3_n1" depart="7.2" departLane="0" departPos="0.0" departSpeed="8.50"/>
+    <person id="ped_04" depart="7.8" departPos="0.0"><walk edges="e_pASE_A3 e_A3_PC e_PC_A1 e_A1_pANW" speed="1.50"/></person>
+
+    <vehicle id="veh_07" type="car_fast" route="r_w1_s3" depart="8.4" departLane="0" departPos="0.0" departSpeed="12.00"/>
+    <person id="ped_05" depart="9.0" departPos="0.0"><walk edges="e_pVN_V4 e_V4_V3 e_V3_V2 e_V2_V1 e_V1_pVS" speed="1.60"/></person>
+
+    <vehicle id="veh_08" type="car_city" route="r_n3_w2" depart="9.6" departLane="0" departPos="0.0" departSpeed="10.00"/>
+    <person id="ped_06" depart="10.2" departPos="0.0"><walk edges="e_pHW_H1 e_H1_H2 e_H2_H3 e_H3_H4 e_H4_pHE" speed="1.70"/></person>
+
+    <vehicle id="veh_09" type="car_city" route="r_e1_s2" depart="10.8" departLane="0" departPos="0.0" departSpeed="10.00"/>
+    <person id="ped_07" depart="11.4" departPos="0.0"><walk edges="e_pVS_V1 e_V1_V2 e_V2_V3 e_V3_V4 e_V4_pVN" speed="1.40"/></person>
+
+    <vehicle id="veh_10" type="car_fast" route="r_w2_n2" depart="12.0" departLane="0" departPos="0.0" departSpeed="12.00"/>
+    <person id="cyc_02" depart="12.6" departPos="0.0"><walk edges="e_pDSW_D1 e_D1_PC e_PC_D3 e_D3_pDNE" speed="3.60"/></person>
+
+    <vehicle id="veh_11" type="car_fast" route="r_n1_e2" depart="13.2" departLane="0" departPos="0.0" departSpeed="12.00"/>
+    <person id="ped_08" depart="13.8" departPos="0.0"><walk edges="e_pANW_A1 e_A1_PC e_PC_A3 e_A3_pASE" speed="1.42"/></person>
+
+    <vehicle id="veh_12" type="car_city" route="r_s2_n2" depart="14.4" departLane="0" departPos="0.0" departSpeed="10.50"/>
+    <person id="ped_09" depart="15.0" departPos="0.0"><walk edges="e_pHE_H4 e_H4_H3 e_H3_H2 e_H2_H1 e_H1_pHW" speed="1.52"/></person>
+
+    <vehicle id="veh_13" type="bus_type" route="r_w3_e1" depart="15.6" departLane="0" departPos="0.0" departSpeed="8.80"/>
+    <person id="cyc_03" depart="16.2" departPos="0.0"><walk edges="e_pDNE_D3 e_D3_PC e_PC_D1 e_D1_pDSW" speed="3.70"/></person>
+
+    <vehicle id="veh_14" type="car_fast" route="r_e2_s1" depart="16.8" departLane="0" departPos="0.0" departSpeed="12.30"/>
+    <person id="ped_10" depart="17.4" departPos="0.0"><walk edges="e_pASE_A3 e_A3_PC e_PC_A1 e_A1_pANW" speed="1.48"/></person>
+
+    <vehicle id="veh_15" type="car_city" route="r_s1_n1" depart="18.0" departLane="0" departPos="0.0" departSpeed="10.80"/>
+    <person id="ped_11" depart="18.6" departPos="0.0"><walk edges="e_pVN_V4 e_V4_V3 e_V3_V2 e_V2_V1 e_V1_pVS" speed="1.44"/></person>
+
+    <vehicle id="veh_16" type="car_fast" route="r_w2_e2" depart="19.2" departLane="0" departPos="0.0" departSpeed="12.20"/>
+    <person id="ped_12" depart="19.8" departPos="0.0"><walk edges="e_pHW_H1 e_H1_H2 e_H2_H3 e_H3_H4 e_H4_pHE" speed="1.46"/></person>
+
+    <vehicle id="veh_17" type="car_city" route="r_n2_e3" depart="20.4" departLane="0" departPos="0.0" departSpeed="10.90"/>
+    <person id="ped_13" depart="21.0" departPos="0.0"><walk edges="e_pVS_V1 e_V1_V2 e_V2_V3 e_V3_V4 e_V4_pVN" speed="1.50"/></person>
+
+    <vehicle id="veh_18" type="bus_type" route="r_e1_w1" depart="21.6" departLane="0" departPos="0.0" departSpeed="8.70"/>
+    <person id="cyc_04" depart="22.2" departPos="0.0"><walk edges="e_pDSW_D1 e_D1_PC e_PC_D3 e_D3_pDNE" speed="3.55"/></person>
+
+    <vehicle id="veh_19" type="car_fast" route="r_s2_w3" depart="22.8" departLane="0" departPos="0.0" departSpeed="12.10"/>
+    <person id="ped_14" depart="23.4" departPos="0.0"><walk edges="e_pANW_A1 e_A1_PC e_PC_A3 e_A3_pASE" speed="1.47"/></person>
+
+    <person id="ped_15" depart="24.0" departPos="0.0"><walk edges="e_pHE_H4 e_H4_H3 e_H3_H2 e_H2_H1 e_H1_pHW" speed="1.43"/></person>
+</routes>

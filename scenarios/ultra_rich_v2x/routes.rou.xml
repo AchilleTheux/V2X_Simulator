@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Ultra-rich deterministic traffic plan.
+  - 12 vehicles (cars + buses)
+  - 8 VRUs (pedestrians/cyclists modeled as persons with higher speed)
+  - departures sorted by time for deterministic loading
+-->
+<routes>
+    <vType id="car_fast" accel="2.6" decel="4.5" sigma="0.0" length="5.0" maxSpeed="13.89" speedFactor="1.0" speedDev="0.0"/>
+    <vType id="car_city" accel="2.0" decel="4.5" sigma="0.0" length="5.0" maxSpeed="11.11" speedFactor="1.0" speedDev="0.0"/>
+    <vType id="bus_type" accel="1.2" decel="3.5" sigma="0.0" length="12.0" maxSpeed="10.00" speedFactor="1.0" speedDev="0.0"/>
+
+    <!-- Vehicle routes -->
+    <route id="r_wt_et" edges="e_WT_A e_A_B e_B_ET"/>
+    <route id="r_et_wt" edges="e_ET_B e_B_A e_A_WT"/>
+    <route id="r_wb_eb" edges="e_WB_C e_C_D e_D_EB"/>
+    <route id="r_eb_wb" edges="e_EB_D e_D_C e_C_WB"/>
+    <route id="r_nw_sw" edges="e_NW_A e_A_C e_C_SW"/>
+    <route id="r_sw_nw" edges="e_SW_C e_C_A e_A_NW"/>
+    <route id="r_ne_se" edges="e_NE_B e_B_D e_D_SE"/>
+    <route id="r_se_ne" edges="e_SE_D e_D_B e_B_NE"/>
+    <route id="r_wt_se" edges="e_WT_A e_A_B e_B_D e_D_SE"/>
+    <route id="r_eb_nw" edges="e_EB_D e_D_C e_C_A e_A_NW"/>
+    <route id="r_sw_et" edges="e_SW_C e_C_A e_A_B e_B_ET"/>
+    <route id="r_ne_wb" edges="e_NE_B e_B_A e_A_C e_C_WB"/>
+
+    <!-- Departures sorted by time -->
+    <vehicle id="veh_00" type="car_fast" route="r_wt_et" depart="0.0" departLane="0" departPos="0.0" departSpeed="13.89"/>
+    <person id="ped_00" depart="0.5" departPos="0.0"><walk edges="e_pS_Y1 e_Y1_Y2 e_Y2_Y3 e_Y3_pN" speed="1.40"/></person>
+
+    <vehicle id="veh_01" type="car_city" route="r_nw_sw" depart="1.5" departLane="0" departPos="0.0" departSpeed="11.11"/>
+    <person id="ped_01" depart="2.0" departPos="0.0"><walk edges="e_pW_X1 e_X1_X2 e_X2_X3 e_X3_pE" speed="1.55"/></person>
+
+    <vehicle id="veh_02" type="bus_type" route="r_et_wt" depart="3.0" departLane="0" departPos="0.0" departSpeed="9.00"/>
+    <person id="cyc_00" depart="3.5" departPos="0.0"><walk edges="e_D1_D2 e_D2_D3 e_D3_D4" speed="3.80"/></person>
+
+    <vehicle id="veh_03" type="car_city" route="r_eb_wb" depart="4.5" departLane="0" departPos="0.0" departSpeed="10.50"/>
+    <person id="ped_02" depart="5.0" departPos="0.0"><walk edges="e_pS_Y1 e_Y1_Y2 e_Y2_Y3 e_Y3_pN" speed="1.30"/></person>
+
+    <vehicle id="veh_04" type="car_fast" route="r_sw_nw" depart="6.0" departLane="0" departPos="0.0" departSpeed="12.50"/>
+    <person id="ped_03" depart="6.5" departPos="0.0"><walk edges="e_pW_X1 e_X1_X2 e_X2_X3 e_X3_pE" speed="1.45"/></person>
+
+    <vehicle id="veh_05" type="car_city" route="r_ne_se" depart="7.5" departLane="0" departPos="0.0" departSpeed="11.11"/>
+    <person id="cyc_01" depart="8.0" departPos="0.0"><walk edges="e_D1_D2 e_D2_D3 e_D3_D4" speed="3.50"/></person>
+
+    <vehicle id="veh_06" type="bus_type" route="r_wb_eb" depart="9.0" departLane="0" departPos="0.0" departSpeed="8.50"/>
+    <person id="ped_04" depart="9.5" departPos="0.0"><walk edges="e_pS_Y1 e_Y1_Y2 e_Y2_Y3 e_Y3_pN" speed="1.50"/></person>
+
+    <vehicle id="veh_07" type="car_fast" route="r_se_ne" depart="10.5" departLane="0" departPos="0.0" departSpeed="12.00"/>
+    <person id="ped_05" depart="11.0" departPos="0.0"><walk edges="e_pW_X1 e_X1_X2 e_X2_X3 e_X3_pE" speed="1.60"/></person>
+
+    <vehicle id="veh_08" type="car_city" route="r_wt_se" depart="12.0" departLane="0" departPos="0.0" departSpeed="10.00"/>
+    <person id="ped_06" depart="12.5" departPos="0.0"><walk edges="e_D1_D2 e_D2_D3 e_D3_D4" speed="1.70"/></person>
+
+    <vehicle id="veh_09" type="car_city" route="r_eb_nw" depart="13.5" departLane="0" departPos="0.0" departSpeed="10.00"/>
+    <person id="ped_07" depart="14.0" departPos="0.0"><walk edges="e_pW_X1 e_X1_X2 e_X2_X3 e_X3_pE" speed="1.40"/></person>
+
+    <vehicle id="veh_10" type="car_fast" route="r_sw_et" depart="15.0" departLane="0" departPos="0.0" departSpeed="12.00"/>
+    <vehicle id="veh_11" type="car_fast" route="r_ne_wb" depart="16.0" departLane="0" departPos="0.0" departSpeed="12.00"/>
+</routes>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Ultra-rich deterministic V2X scenario.
+
+  Car network: 2x2 intersection grid with 8 boundary entry/exit points.
+  VRU network: multiple corridors crossing the road grid.
+-->
+<nodes>
+    <!-- Grid intersections -->
+    <node id="nA" x="-60.0" y="60.0" type="priority"/>
+    <node id="nB" x="60.0" y="60.0" type="priority"/>
+    <node id="nC" x="-60.0" y="-60.0" type="priority"/>
+    <node id="nD" x="60.0" y="-60.0" type="priority"/>
+
+    <!-- Boundary nodes (vehicles) -->
+    <node id="nWT" x="-180.0" y="60.0"/>
+    <node id="nET" x="180.0" y="60.0"/>
+    <node id="nWB" x="-180.0" y="-60.0"/>
+    <node id="nEB" x="180.0" y="-60.0"/>
+    <node id="nNW" x="-60.0" y="180.0"/>
+    <node id="nNE" x="60.0" y="180.0"/>
+    <node id="nSW" x="-60.0" y="-180.0"/>
+    <node id="nSE" x="60.0" y="-180.0"/>
+
+    <!-- Pedestrian corridor X (west-east around y=0) -->
+    <node id="pW" x="-140.0" y="0.0"/>
+    <node id="pX1" x="-70.0" y="0.0"/>
+    <node id="pX2" x="0.0" y="0.0"/>
+    <node id="pX3" x="70.0" y="0.0"/>
+    <node id="pE" x="140.0" y="0.0"/>
+
+    <!-- Pedestrian corridor Y (south-north around x=0) -->
+    <node id="pS" x="0.0" y="-140.0"/>
+    <node id="pY1" x="0.0" y="-70.0"/>
+    <node id="pY2" x="0.0" y="0.0"/>
+    <node id="pY3" x="0.0" y="70.0"/>
+    <node id="pN" x="0.0" y="140.0"/>
+
+    <!-- Diagonal VRU corridor (SW -> NE) -->
+    <node id="pD1" x="-120.0" y="-120.0"/>
+    <node id="pD2" x="-40.0" y="-40.0"/>
+    <node id="pD3" x="40.0" y="40.0"/>
+    <node id="pD4" x="120.0" y="120.0"/>
+</nodes>

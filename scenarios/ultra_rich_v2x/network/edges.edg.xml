@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Vehicle edges (passenger+bus) and dedicated pedestrian corridors.
+-->
+<edges>
+    <!-- Top horizontal road -->
+    <edge id="e_WT_A" from="nWT" to="nA" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_A_B" from="nA" to="nB" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_B_ET" from="nB" to="nET" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_ET_B" from="nET" to="nB" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_B_A" from="nB" to="nA" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_A_WT" from="nA" to="nWT" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+
+    <!-- Bottom horizontal road -->
+    <edge id="e_WB_C" from="nWB" to="nC" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_C_D" from="nC" to="nD" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_D_EB" from="nD" to="nEB" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_EB_D" from="nEB" to="nD" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_D_C" from="nD" to="nC" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_C_WB" from="nC" to="nWB" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+
+    <!-- Left vertical road -->
+    <edge id="e_NW_A" from="nNW" to="nA" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_A_C" from="nA" to="nC" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_C_SW" from="nC" to="nSW" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_SW_C" from="nSW" to="nC" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_C_A" from="nC" to="nA" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_A_NW" from="nA" to="nNW" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+
+    <!-- Right vertical road -->
+    <edge id="e_NE_B" from="nNE" to="nB" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_B_D" from="nB" to="nD" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_D_SE" from="nD" to="nSE" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_SE_D" from="nSE" to="nD" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_D_B" from="nD" to="nB" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_B_NE" from="nB" to="nNE" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+
+    <!-- Pedestrian corridor X -->
+    <edge id="e_pW_X1" from="pW" to="pX1" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_X1_X2" from="pX1" to="pX2" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_X2_X3" from="pX2" to="pX3" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_X3_pE" from="pX3" to="pE" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+
+    <!-- Pedestrian corridor Y -->
+    <edge id="e_pS_Y1" from="pS" to="pY1" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_Y1_Y2" from="pY1" to="pY2" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_Y2_Y3" from="pY2" to="pY3" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_Y3_pN" from="pY3" to="pN" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+
+    <!-- Diagonal corridor SW -> NE -->
+    <edge id="e_D1_D2" from="pD1" to="pD2" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_D2_D3" from="pD2" to="pD3" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_D3_D4" from="pD3" to="pD4" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+</edges>

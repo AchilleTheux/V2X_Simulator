@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Vehicle edges (passenger+bus) plus dedicated pedestrian corridors.
+  The design is intentionally deterministic and easy to trace in TraCI.
+-->
+<edges>
+    <!-- Top row (y=120) -->
+    <edge id="e_W1_I11" from="w1" to="i11" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_I11_I12" from="i11" to="i12" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_I12_I13" from="i12" to="i13" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_I13_E1" from="i13" to="e1" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+
+    <edge id="e_E1_I13" from="e1" to="i13" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_I13_I12" from="i13" to="i12" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_I12_I11" from="i12" to="i11" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+    <edge id="e_I11_W1" from="i11" to="w1" priority="3" numLanes="1" speed="13.89" allow="passenger bus"/>
+
+    <!-- Middle row (y=0) -->
+    <edge id="e_W2_I21" from="w2" to="i21" priority="3" numLanes="1" speed="13.00" allow="passenger bus"/>
+    <edge id="e_I21_I22" from="i21" to="i22" priority="3" numLanes="1" speed="13.00" allow="passenger bus"/>
+    <edge id="e_I22_I23" from="i22" to="i23" priority="3" numLanes="1" speed="13.00" allow="passenger bus"/>
+    <edge id="e_I23_E2" from="i23" to="e2" priority="3" numLanes="1" speed="13.00" allow="passenger bus"/>
+
+    <edge id="e_E2_I23" from="e2" to="i23" priority="3" numLanes="1" speed="13.00" allow="passenger bus"/>
+    <edge id="e_I23_I22" from="i23" to="i22" priority="3" numLanes="1" speed="13.00" allow="passenger bus"/>
+    <edge id="e_I22_I21" from="i22" to="i21" priority="3" numLanes="1" speed="13.00" allow="passenger bus"/>
+    <edge id="e_I21_W2" from="i21" to="w2" priority="3" numLanes="1" speed="13.00" allow="passenger bus"/>
+
+    <!-- Bottom row (y=-120) -->
+    <edge id="e_W3_I31" from="w3" to="i31" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I31_I32" from="i31" to="i32" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I32_I33" from="i32" to="i33" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I33_E3" from="i33" to="e3" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+
+    <edge id="e_E3_I33" from="e3" to="i33" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I33_I32" from="i33" to="i32" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I32_I31" from="i32" to="i31" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I31_W3" from="i31" to="w3" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+
+    <!-- Left column (x=-120) -->
+    <edge id="e_N1_I11" from="n1" to="i11" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I11_I21" from="i11" to="i21" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I21_I31" from="i21" to="i31" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I31_S1" from="i31" to="s1" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+
+    <edge id="e_S1_I31" from="s1" to="i31" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I31_I21" from="i31" to="i21" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I21_I11" from="i21" to="i11" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I11_N1" from="i11" to="n1" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+
+    <!-- Middle column (x=0) -->
+    <edge id="e_N2_I12" from="n2" to="i12" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I12_I22" from="i12" to="i22" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I22_I32" from="i22" to="i32" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I32_S2" from="i32" to="s2" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+
+    <edge id="e_S2_I32" from="s2" to="i32" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I32_I22" from="i32" to="i22" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I22_I12" from="i22" to="i12" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I12_N2" from="i12" to="n2" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+
+    <!-- Right column (x=120) -->
+    <edge id="e_N3_I13" from="n3" to="i13" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I13_I23" from="i13" to="i23" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I23_I33" from="i23" to="i33" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I33_S3" from="i33" to="s3" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+
+    <edge id="e_S3_I33" from="s3" to="i33" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I33_I23" from="i33" to="i23" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I23_I13" from="i23" to="i13" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+    <edge id="e_I13_N3" from="i13" to="n3" priority="3" numLanes="1" speed="12.50" allow="passenger bus"/>
+
+    <!-- Pedestrian horizontal corridor -->
+    <edge id="e_pHW_H1" from="pHW" to="pH1" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_H1_H2" from="pH1" to="pH2" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_H2_H3" from="pH2" to="pH3" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_H3_H4" from="pH3" to="pH4" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_H4_pHE" from="pH4" to="pHE" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+
+    <edge id="e_pHE_H4" from="pHE" to="pH4" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_H4_H3" from="pH4" to="pH3" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_H3_H2" from="pH3" to="pH2" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_H2_H1" from="pH2" to="pH1" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_H1_pHW" from="pH1" to="pHW" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+
+    <!-- Pedestrian vertical corridor -->
+    <edge id="e_pVS_V1" from="pVS" to="pV1" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_V1_V2" from="pV1" to="pV2" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_V2_V3" from="pV2" to="pV3" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_V3_V4" from="pV3" to="pV4" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_V4_pVN" from="pV4" to="pVN" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+
+    <edge id="e_pVN_V4" from="pVN" to="pV4" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_V4_V3" from="pV4" to="pV3" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_V3_V2" from="pV3" to="pV2" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_V2_V1" from="pV2" to="pV1" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+    <edge id="e_V1_pVS" from="pV1" to="pVS" priority="1" numLanes="1" speed="1.8" allow="pedestrian"/>
+
+    <!-- Diagonal corridor SW <-> NE -->
+    <edge id="e_pDSW_D1" from="pDSW" to="pD1" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_D1_PC" from="pD1" to="pC" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_PC_D3" from="pC" to="pD3" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_D3_pDNE" from="pD3" to="pDNE" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+
+    <edge id="e_pDNE_D3" from="pDNE" to="pD3" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_D3_PC" from="pD3" to="pC" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_PC_D1" from="pC" to="pD1" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_D1_pDSW" from="pD1" to="pDSW" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+
+    <!-- Anti-diagonal corridor NW <-> SE -->
+    <edge id="e_pANW_A1" from="pANW" to="pA1" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_A1_PC" from="pA1" to="pC" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_PC_A3" from="pC" to="pA3" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_A3_pASE" from="pA3" to="pASE" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+
+    <edge id="e_pASE_A3" from="pASE" to="pA3" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_A3_PC" from="pA3" to="pC" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_PC_A1" from="pC" to="pA1" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+    <edge id="e_A1_pANW" from="pA1" to="pANW" priority="1" numLanes="1" speed="2.0" allow="pedestrian"/>
+</edges>

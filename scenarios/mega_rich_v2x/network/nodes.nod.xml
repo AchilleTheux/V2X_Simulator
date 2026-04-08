@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Mega-rich deterministic V2X scenario.
+
+  Vehicle network:
+  - 3x3 urban grid (9 internal intersections)
+  - 12 boundary nodes for entries/exits
+
+  VRU network:
+  - horizontal and vertical corridors crossing the road center
+  - two diagonal corridors crossing near the central junction
+-->
+<nodes>
+    <!-- 3x3 vehicle intersections -->
+    <node id="i11" x="-120.0" y="120.0" type="priority"/>
+    <node id="i12" x="0.0" y="120.0" type="priority"/>
+    <node id="i13" x="120.0" y="120.0" type="priority"/>
+
+    <node id="i21" x="-120.0" y="0.0" type="priority"/>
+    <node id="i22" x="0.0" y="0.0" type="priority"/>
+    <node id="i23" x="120.0" y="0.0" type="priority"/>
+
+    <node id="i31" x="-120.0" y="-120.0" type="priority"/>
+    <node id="i32" x="0.0" y="-120.0" type="priority"/>
+    <node id="i33" x="120.0" y="-120.0" type="priority"/>
+
+    <!-- Vehicle boundaries -->
+    <node id="w1" x="-260.0" y="120.0"/>
+    <node id="w2" x="-260.0" y="0.0"/>
+    <node id="w3" x="-260.0" y="-120.0"/>
+
+    <node id="e1" x="260.0" y="120.0"/>
+    <node id="e2" x="260.0" y="0.0"/>
+    <node id="e3" x="260.0" y="-120.0"/>
+
+    <node id="n1" x="-120.0" y="260.0"/>
+    <node id="n2" x="0.0" y="260.0"/>
+    <node id="n3" x="120.0" y="260.0"/>
+
+    <node id="s1" x="-120.0" y="-260.0"/>
+    <node id="s2" x="0.0" y="-260.0"/>
+    <node id="s3" x="120.0" y="-260.0"/>
+
+    <!-- Pedestrian horizontal corridor (west -> east, around y=0) -->
+    <node id="pHW" x="-230.0" y="0.0"/>
+    <node id="pH1" x="-140.0" y="0.0"/>
+    <node id="pH2" x="-40.0" y="0.0"/>
+    <node id="pH3" x="40.0" y="0.0"/>
+    <node id="pH4" x="140.0" y="0.0"/>
+    <node id="pHE" x="230.0" y="0.0"/>
+
+    <!-- Pedestrian vertical corridor (south -> north, around x=0) -->
+    <node id="pVS" x="0.0" y="-230.0"/>
+    <node id="pV1" x="0.0" y="-140.0"/>
+    <node id="pV2" x="0.0" y="-40.0"/>
+    <node id="pV3" x="0.0" y="40.0"/>
+    <node id="pV4" x="0.0" y="140.0"/>
+    <node id="pVN" x="0.0" y="230.0"/>
+
+    <!-- Diagonals crossing near center -->
+    <node id="pDSW" x="-200.0" y="-200.0"/>
+    <node id="pD1" x="-80.0" y="-80.0"/>
+    <node id="pC" x="0.0" y="0.0"/>
+    <node id="pD3" x="80.0" y="80.0"/>
+    <node id="pDNE" x="200.0" y="200.0"/>
+
+    <node id="pANW" x="-200.0" y="200.0"/>
+    <node id="pA1" x="-80.0" y="80.0"/>
+    <node id="pA3" x="80.0" y="-80.0"/>
+    <node id="pASE" x="200.0" y="-200.0"/>
+</nodes>

@@ -30,6 +30,8 @@ Ce qui reste à faire ensuite : brancher toute la chaîne dans une boucle unique
 - `v2x_sim/main.py` : boucle de simulation complète (sans MAB) avec stratégie, communication, reward et résumé final.
 - `scenarios/minimal_v2x/` : scénario SUMO minimal reproductible.
 - `scenarios/rich_v2x/` : scénario SUMO plus riche (intersection, multi-véhicules, multi-VRU).
+- `scenarios/ultra_rich_v2x/` : scénario dense en grille 2x2 (multi-acteurs, multi-corridors VRU).
+- `scenarios/mega_rich_v2x/` : scénario encore plus dense en grille 3x3 (20 véhicules, 16 VRU).
 - `tests/` : tests unitaires `pytest`.
 
 ## Installation (Ubuntu)
@@ -80,6 +82,23 @@ Générer le réseau :
 
 ```bash
 cd scenarios/rich_v2x
+bash generate_network.sh
+```
+
+Lancer le scénario :
+
+```bash
+sumo -c scenario.sumocfg
+```
+
+## Scenario SUMO mega riche
+
+Dossier : `scenarios/mega_rich_v2x/`
+
+Générer le réseau :
+
+```bash
+cd scenarios/mega_rich_v2x
 bash generate_network.sh
 ```
 
