@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Deterministic actors:
+  - 1 vehicle on e_car
+  - 1 pedestrian (VRU) on e_ped
+
+  Timing rationale:
+  - Vehicle midpoint reached around t ~= 3.6 s (100 m edge, center at 50 m, ~13.89 m/s)
+  - Pedestrian midpoint reached around t ~= 3.6 s (10 m edge, center at 5 m, ~1.4 m/s)
+  => predictable close encounter near (50, 0) for danger-distance testing.
+-->
+<routes>
+    <vType id="car_type" accel="2.0" decel="4.5" sigma="0.0" length="5.0" maxSpeed="13.89" speedFactor="1.0" speedDev="0.0"/>
+
+    <route id="car_route" edges="e_car"/>
+
+    <vehicle id="veh_0" type="car_type" route="car_route" depart="0.0" departLane="0" departPos="0.0" departSpeed="13.89"/>
+
+    <person id="ped_0" depart="0.0" departPos="0.0">
+        <walk edges="e_ped" speed="1.40"/>
+    </person>
+</routes>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Minimal deterministic network for V2X proximity tests.
+  Geometry:
+  - Horizontal car edge (W -> E)
+  - Vertical pedestrian edge (S -> N)
+  The two edges cross geometrically near (50, 0), which creates a predictable
+  close-approach point between the vehicle and the VRU.
+-->
+<nodes>
+    <node id="nW" x="0.0" y="0.0"/>
+    <node id="nE" x="100.0" y="0.0"/>
+    <node id="nS" x="50.0" y="-5.0"/>
+    <node id="nN" x="50.0" y="5.0"/>
+</nodes>

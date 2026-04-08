@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-08 18:48:08 by Eclipse SUMO netconvert Version 1.18.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="network/nodes.nod.xml"/>
+        <edge-files value="network/edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="network/network.net.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,5.00" convBoundary="0.00,0.00,100.00,10.00" origBoundary="0.00,-5.00,100.00,5.00" projParameter="!"/>
+
+    <edge id="e_car" from="nW" to="nE" priority="1">
+        <lane id="e_car_0" index="0" allow="passenger" speed="13.89" length="100.00" shape="0.00,3.40 100.00,3.40"/>
+    </edge>
+    <edge id="e_ped" from="nS" to="nN" priority="1">
+        <lane id="e_ped_0" index="0" allow="pedestrian" speed="1.40" length="10.00" shape="51.60,0.00 51.60,10.00"/>
+    </edge>
+
+    <junction id="nE" type="dead_end" x="100.00" y="5.00" incLanes="e_car_0" intLanes="" shape="100.00,1.80 100.00,5.00"/>
+    <junction id="nN" type="dead_end" x="50.00" y="10.00" incLanes="e_ped_0" intLanes="" shape="53.20,10.00 50.00,10.00"/>
+    <junction id="nS" type="dead_end" x="50.00" y="0.00" incLanes="" intLanes="" shape="50.00,0.00 53.20,0.00"/>
+    <junction id="nW" type="dead_end" x="0.00" y="5.00" incLanes="" intLanes="" shape="0.00,5.00 0.00,1.80"/>
+
+</net>
