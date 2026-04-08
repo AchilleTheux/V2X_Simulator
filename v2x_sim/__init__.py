@@ -3,7 +3,13 @@
 from .baseline import BaselinePolicy
 from .communication_model import CommunicationDecision, CommunicationMode, CommunicationModel
 from .context_builder import ActorState, ContextBuilder, SimulationContext
-from .danger_detector import DangerDetector, DangerEvent
+from .danger_detector import (
+    DangerAssessment,
+    DangerDetector,
+    DangerEvent,
+    assess_proximity_danger,
+    euclidean_distance,
+)
 from .metrics import MetricsCollector
 from .sumo_runner import RoadUserState, SimulationStepSnapshot, SumoConfig, SumoRunner
 from .thompson import ThompsonPolicy
@@ -15,6 +21,7 @@ __all__ = [
     "CommunicationMode",
     "CommunicationModel",
     "ContextBuilder",
+    "DangerAssessment",
     "DangerDetector",
     "DangerEvent",
     "MetricsCollector",
@@ -24,4 +31,6 @@ __all__ = [
     "SumoConfig",
     "SumoRunner",
     "ThompsonPolicy",
+    "assess_proximity_danger",
+    "euclidean_distance",
 ]
