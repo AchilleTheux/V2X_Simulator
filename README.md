@@ -1,66 +1,42 @@
-# V2X Communication Simulator Skeleton
+# V2X Communication Simulator (SUMO + Python)
 
-This repository contains a clean Python skeleton for an academic V2X project
-based on SUMO + Python.
+Projet académique pour simuler la communication V2X entre un VRU (piéton/cycliste)
+et un véhicule, avec deux modes de communication : direct ou via RSU.
 
-## Goals
+## Etat actuel du projet
 
-- Simulate interactions between VRU (pedestrian/cyclist) and vehicles.
-- Detect dangerous proximity situations.
-- Choose a communication mode:
-  - direct VRU <-> vehicle
-  - via infrastructure (RSU)
-- Prepare later integration of MAB strategies (for example Thompson sampling).
+- Scenario SUMO minimal déterministe disponible (`veh_0` + `ped_0`).
+- Pilotage SUMO pas à pas via TraCI implémenté.
+- Construction d'un contexte de décision (`Context`) implémentée.
+- Détection de proximité dangereuse (distance euclidienne + seuil) implémentée.
+- Modèle de communication simplifié (direct / infrastructure) implémenté.
+- Base de tests `pytest` en place et verte.
 
-## Project layout
+Ce qui reste à faire ensuite : brancher toute la chaîne dans une boucle unique
+(TraCI -> context -> danger -> communication -> politique baseline/MAB).
 
-- `v2x_sim/sumo_runner.py`: SUMO lifecycle wrapper (start/step/stop).
-- `v2x_sim/context_builder.py`: builds typed scene context objects.
-- `v2x_sim/danger_detector.py`: danger event interface and detector skeleton.
-- `v2x_sim/communication_model.py`: communication decision abstractions.
-- `v2x_sim/baseline.py`: simple threshold-based baseline policy.
-- `v2x_sim/thompson.py`: placeholder for Thompson sampling MAB policy.
-- `v2x_sim/metrics.py`: lightweight experiment metrics collector.
-- `v2x_sim/logger.py`: shared logger configuration utility.
-- `v2x_sim/main.py`: minimal orchestration entry point.
-- `tests/`: pytest test skeletons.
+## Structure du projet
 
-## Quick start
+- `v2x_sim/sumo_runner.py` : lance SUMO/SUMO-GUI via TraCI, fait `simulationStep()`, lit états véhicules/piétons.
+- `v2x_sim/context_builder.py` : définit `Context` et construit un contexte décisionnel (distance, danger, rsu_available, rsu_load, obstacle_present).
+- `v2x_sim/danger_detector.py` : fonctions pures de détection de danger + détecteur par paires VRU/véhicule.
+- `v2x_sim/communication_model.py` : simulation paramétrable des communications directes et via RSU (`CommunicationResult`).
+- `v2x_sim/baseline.py` : politique baseline simple par seuil de distance.
+- `v2x_sim/thompson.py` : squelette Thompson Sampling pour futur MAB.
+- `v2x_sim/metrics.py` : collecte de métriques de simulation.
+- `v2x_sim/main.py` : démo TraCI (affichage propre des acteurs à chaque pas).
+- `scenarios/minimal_v2x/` : scénario SUMO minimal reproductible.
+- `tests/` : tests unitaires `pytest`.
 
-Run the skeleton simulation loop:
-
-```bash
-python -m v2x_sim.main --steps 20
-```
-
-Run the TraCI demo on the minimal SUMO scenario:
-
-```bash
-python -m v2x_sim.main --scenario scenarios/minimal_v2x/scenario.sumocfg --steps 50
-```
-
-Run tests:
-
-```bash
-pytest -q
-```
-
-## Ubuntu Setup (Required Tools)
-
-Install base Python tools:
+## Installation (Ubuntu)
 
 ```bash
 sudo apt update
 sudo apt install -y python3 python3-venv python3-pip python3-pytest
-```
-
-Install SUMO tools:
-
-```bash
 sudo apt install -y sumo sumo-tools sumo-doc
 ```
 
-Check installation:
+Vérification :
 
 ```bash
 python3 --version
@@ -69,30 +45,54 @@ sumo --version
 netconvert --version
 ```
 
-## Validation Tests
+Si `import traci` échoue côté Python, ajouter les outils SUMO au `PYTHONPATH` :
 
-Run unit tests:
+```bash
+export PYTHONPATH="/usr/share/sumo/tools:${PYTHONPATH}"
+```
+
+## Scenario SUMO minimal
+
+Dossier : `scenarios/minimal_v2x/`
+
+Générer le réseau (si besoin) :
+
+```bash
+cd scenarios/minimal_v2x
+bash generate_network.sh
+```
+
+Lancer SUMO directement :
+
+```bash
+sumo -c scenario.sumocfg
+```
+
+## Exécuter la démo Python TraCI
+
+Depuis la racine `src/` :
+
+```bash
+python -m v2x_sim.main --scenario scenarios/minimal_v2x/scenario.sumocfg --steps 50
+```
+
+Avec interface graphique :
+
+```bash
+python -m v2x_sim.main --scenario scenarios/minimal_v2x/scenario.sumocfg --steps 50 --gui
+```
+
+## Tests
+
+Lancer toute la suite :
 
 ```bash
 pytest -q
 ```
 
-Generate and run the minimal SUMO scenario test:
+La suite couvre notamment :
 
-```bash
-cd scenarios/minimal_v2x
-bash generate_network.sh
-sumo -c scenario.sumocfg --duration-log.statistics
-```
-
-## Notes
-
-- No advanced logic is implemented yet.
-- SUMO/TraCI integration points are marked with TODO comments.
-- Modules are intentionally small and typed for easy extension.
-
-## Minimal SUMO Scenario
-
-- Scenario folder: `scenarios/minimal_v2x/`
-- Main config: `scenarios/minimal_v2x/scenario.sumocfg`
-- Scenario documentation: `scenarios/minimal_v2x/README.md`
+- `sumo_runner` avec TraCI mocké,
+- `context_builder` (construction + déterminisme),
+- `danger_detector` (distance, seuil, stabilité numérique),
+- `communication_model` (direct vs RSU, latence, échecs RSU indisponible).
