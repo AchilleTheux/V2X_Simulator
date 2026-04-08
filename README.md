@@ -33,6 +33,12 @@ Run the skeleton simulation loop:
 python -m v2x_sim.main --steps 20
 ```
 
+Run the TraCI demo on the minimal SUMO scenario:
+
+```bash
+python -m v2x_sim.main --scenario scenarios/minimal_v2x/scenario.sumocfg --steps 50
+```
+
 Run tests:
 
 ```bash
