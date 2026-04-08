@@ -5,7 +5,7 @@ from .communication_model import CommunicationDecision, CommunicationMode, Commu
 from .context_builder import ActorState, ContextBuilder, SimulationContext
 from .danger_detector import DangerDetector, DangerEvent
 from .metrics import MetricsCollector
-from .sumo_runner import SumoConfig, SumoRunner
+from .sumo_runner import RoadUserState, SimulationStepSnapshot, SumoConfig, SumoRunner
 from .thompson import ThompsonPolicy
 
 __all__ = [
@@ -18,6 +18,8 @@ __all__ = [
     "DangerDetector",
     "DangerEvent",
     "MetricsCollector",
+    "RoadUserState",
+    "SimulationStepSnapshot",
     "SimulationContext",
     "SumoConfig",
     "SumoRunner",

@@ -1,26 +1,42 @@
-"""Entry point for the V2X simulation skeleton."""
+"""Executable demonstration for driving SUMO with TraCI."""
+
+from __future__ import annotations
 
 import argparse
 
-from .communication_model import CommunicationModel
-from .context_builder import ContextBuilder
-from .danger_detector import DangerDetector
 from .logger import build_logger
-from .metrics import MetricsCollector
-from .sumo_runner import SumoConfig, SumoRunner
+from .sumo_runner import RoadUserState, SumoConfig, SumoRunner
 
 
 def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments."""
-    parser = argparse.ArgumentParser(description="V2X communication simulator skeleton")
-    parser.add_argument("--scenario", default="scenarios/example.sumocfg")
-    parser.add_argument("--steps", type=int, default=10)
-    parser.add_argument("--gui", action="store_true", help="Launch SUMO GUI")
+    """Parse command-line options for the TraCI demo script."""
+    parser = argparse.ArgumentParser(description="Run minimal SUMO + TraCI demo")
+    parser.add_argument(
+        "--scenario",
+        default="scenarios/minimal_v2x/scenario.sumocfg",
+        help="Path to SUMO .sumocfg file",
+    )
+    parser.add_argument("--steps", type=int, default=50, help="Number of simulation steps")
+    parser.add_argument("--gui", action="store_true", help="Launch sumo-gui instead of sumo")
+    parser.add_argument(
+        "--step-length",
+        type=float,
+        default=0.1,
+        help="Override simulation step length (seconds)",
+    )
     return parser.parse_args()
 
 
+def _format_actor(prefix: str, state: RoadUserState) -> str:
+    speed = f"{state.speed:.2f} m/s" if state.speed is not None else "n/a"
+    return (
+        f"  {prefix:<4} {state.actor_id:<12} "
+        f"pos=({state.x:7.2f}, {state.y:7.2f}) speed={speed}"
+    )
+
+
 def run() -> int:
-    """Run a minimal simulation loop with placeholders."""
+    """Run demonstration loop and print simulation state at each step."""
     args = parse_args()
     log = build_logger()
 
@@ -28,31 +44,39 @@ def run() -> int:
         SumoConfig(
             scenario_file=args.scenario,
             use_gui=args.gui,
+            step_length=args.step_length,
         )
     )
-    context_builder = ContextBuilder()
-    detector = DangerDetector()
-    comm_model = CommunicationModel()
-    metrics = MetricsCollector()
 
-    runner.start()
+    try:
+        runner.start()
+    except (FileNotFoundError, RuntimeError) as exc:
+        log.error("Unable to start SUMO simulation: %s", exc)
+        return 1
+
+    log.info("Starting TraCI loop for %d steps", args.steps)
+
     try:
         for _ in range(args.steps):
-            step = runner.step()
-            metrics.record_step()
+            snapshot = runner.step()
+            log.info(
+                "t=%.2f s | vehicles=%d | pedestrians=%d",
+                snapshot.time_s,
+                len(snapshot.vehicles),
+                len(snapshot.pedestrians),
+            )
 
-            # Placeholder: actor extraction from SUMO is not wired yet.
-            context = context_builder.build(step=step, actors=[])
-            danger_events = detector.detect(context)
+            for vehicle_id in sorted(snapshot.vehicles):
+                log.info(_format_actor("veh", snapshot.vehicles[vehicle_id]))
 
-            for event in danger_events:
-                metrics.record_danger_event()
-                decision = comm_model.choose_mode(event=event, context=context)
-                metrics.record_mode(decision.mode)
+            for person_id in sorted(snapshot.pedestrians):
+                log.info(_format_actor("ped", snapshot.pedestrians[person_id]))
+    except RuntimeError as exc:
+        log.error("Simulation error: %s", exc)
+        return 1
     finally:
         runner.stop()
 
-    log.info("Simulation summary: %s", metrics.summary())
     return 0
 
 
