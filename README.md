@@ -39,8 +39,54 @@ Run tests:
 pytest -q
 ```
 
+## Ubuntu Setup (Required Tools)
+
+Install base Python tools:
+
+```bash
+sudo apt update
+sudo apt install -y python3 python3-venv python3-pip python3-pytest
+```
+
+Install SUMO tools:
+
+```bash
+sudo apt install -y sumo sumo-tools sumo-doc
+```
+
+Check installation:
+
+```bash
+python3 --version
+pytest --version
+sumo --version
+netconvert --version
+```
+
+## Validation Tests
+
+Run unit tests:
+
+```bash
+pytest -q
+```
+
+Generate and run the minimal SUMO scenario test:
+
+```bash
+cd scenarios/minimal_v2x
+bash generate_network.sh
+sumo -c scenario.sumocfg --duration-log.statistics
+```
+
 ## Notes
 
 - No advanced logic is implemented yet.
 - SUMO/TraCI integration points are marked with TODO comments.
 - Modules are intentionally small and typed for easy extension.
+
+## Minimal SUMO Scenario
+
+- Scenario folder: `scenarios/minimal_v2x/`
+- Main config: `scenarios/minimal_v2x/scenario.sumocfg`
+- Scenario documentation: `scenarios/minimal_v2x/README.md`
