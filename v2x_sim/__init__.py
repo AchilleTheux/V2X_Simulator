@@ -42,7 +42,7 @@ from .metrics import (
 )
 from .reward import compute_reward
 from .sumo_runner import RoadUserState, SimulationStepSnapshot, SumoConfig, SumoRunner
-from .thompson import ThompsonPolicy
+from .thompson import ThompsonPolicy, ThompsonSamplingStrategy
 
 __all__ = [
     "ActorState",
@@ -70,6 +70,7 @@ __all__ = [
     "SumoConfig",
     "SumoRunner",
     "ThompsonPolicy",
+    "ThompsonSamplingStrategy",
     "ThresholdHeuristicStrategy",
     "build_context",
     "compute_distance",

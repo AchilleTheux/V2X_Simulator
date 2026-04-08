@@ -26,7 +26,7 @@ Ce qui reste à faire ensuite : brancher toute la chaîne dans une boucle unique
 - `v2x_sim/baseline.py` : stratégies baseline (`AlwaysDirect`, `AlwaysInfrastructure`, `ThresholdHeuristic`) + interface commune.
 - `v2x_sim/metrics.py` : enregistrement alertes, agrégation (succès/latence/reward/ratios), export CSV.
 - `v2x_sim/logger.py` : logging des alertes et résumés de métriques.
-- `v2x_sim/thompson.py` : squelette Thompson Sampling pour futur MAB.
+- `v2x_sim/thompson.py` : Thompson Sampling non-contextuel simple (2 bras: direct/infrastructure).
 - `v2x_sim/main.py` : boucle de simulation complète (sans MAB) avec stratégie, communication, reward et résumé final.
 - `scenarios/minimal_v2x/` : scénario SUMO minimal reproductible.
 - `scenarios/rich_v2x/` : scénario SUMO plus riche (intersection, multi-véhicules, multi-VRU).
