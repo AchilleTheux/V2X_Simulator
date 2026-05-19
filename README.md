@@ -130,6 +130,8 @@ Stratégies disponibles :
 - `always_infrastructure`
 - `threshold_heuristic` (alias compatible: `threshold`)
 - `thompson`
+- `ucb`
+- `epsilon_greedy`
 
 Exemple sur le scénario riche :
 
@@ -150,6 +152,8 @@ python -m v2x_sim.main --scenario scenarios/rich_v2x/scenario.sumocfg --steps 20
 python -m v2x_sim.main --scenario scenarios/rich_v2x/scenario.sumocfg --steps 200 --strategy always_infrastructure --danger-distance-m 8 --reward-deadline-ms 120 --export-csv /tmp/v2x_always_infra.csv
 python -m v2x_sim.main --scenario scenarios/rich_v2x/scenario.sumocfg --steps 200 --strategy threshold_heuristic --danger-distance-m 8 --reward-deadline-ms 120 --export-csv /tmp/v2x_threshold.csv
 python -m v2x_sim.main --scenario scenarios/rich_v2x/scenario.sumocfg --steps 200 --strategy thompson --danger-distance-m 8 --reward-deadline-ms 120 --export-csv /tmp/v2x_thompson.csv
+python -m v2x_sim.main --scenario scenarios/rich_v2x/scenario.sumocfg --steps 200 --strategy ucb --danger-distance-m 8 --reward-deadline-ms 120 --export-csv /tmp/v2x_ucb.csv
+python -m v2x_sim.main --scenario scenarios/rich_v2x/scenario.sumocfg --steps 200 --strategy epsilon_greedy --danger-distance-m 8 --reward-deadline-ms 120 --export-csv /tmp/v2x_epsilon_greedy.csv
 ```
 
 Résumé final affiché :

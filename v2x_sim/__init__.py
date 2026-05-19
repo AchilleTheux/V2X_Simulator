@@ -7,6 +7,7 @@ from .baseline import (
     DecisionStrategy,
     ThresholdHeuristicStrategy,
 )
+from .bandit import ArmStats, EpsilonGreedyStrategy, UCBStrategy
 from .communication_model import (
     CommunicationDecision,
     CommunicationMode,
@@ -46,6 +47,7 @@ from .thompson import ThompsonPolicy, ThompsonSamplingStrategy
 
 __all__ = [
     "ActorState",
+    "ArmStats",
     "AlwaysDirectStrategy",
     "AlwaysInfrastructureStrategy",
     "BaselinePolicy",
@@ -72,6 +74,8 @@ __all__ = [
     "ThompsonPolicy",
     "ThompsonSamplingStrategy",
     "ThresholdHeuristicStrategy",
+    "UCBStrategy",
+    "EpsilonGreedyStrategy",
     "build_context",
     "compute_distance",
     "assess_proximity_danger",

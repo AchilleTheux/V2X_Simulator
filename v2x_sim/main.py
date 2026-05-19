@@ -12,6 +12,7 @@ from .baseline import (
     DecisionStrategy,
     ThresholdHeuristicStrategy,
 )
+from .bandit import EpsilonGreedyStrategy, UCBStrategy
 from .communication_model import (
     CommunicationMode,
     CommunicationParameters,
@@ -33,6 +34,8 @@ StrategyName = Literal[
     "threshold",
     "threshold_heuristic",
     "thompson",
+    "ucb",
+    "epsilon_greedy",
 ]
 
 
@@ -60,6 +63,8 @@ def parse_args() -> argparse.Namespace:
             "threshold",
             "threshold_heuristic",
             "thompson",
+            "ucb",
+            "epsilon_greedy",
         ],
         default="threshold_heuristic",
         help="Communication decision strategy to apply when danger is detected",
@@ -108,6 +113,10 @@ def build_strategy(
         return ThresholdHeuristicStrategy(direct_distance_threshold_m=threshold_m)
     if name == "thompson":
         return ThompsonSamplingStrategy(rng=rng)
+    if name == "ucb":
+        return UCBStrategy()
+    if name == "epsilon_greedy":
+        return EpsilonGreedyStrategy(rng=rng)
     raise ValueError(f"Unknown strategy: {name}")
 
 

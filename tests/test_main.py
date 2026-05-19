@@ -7,6 +7,7 @@ from v2x_sim.baseline import (
     AlwaysInfrastructureStrategy,
     ThresholdHeuristicStrategy,
 )
+from v2x_sim.bandit import EpsilonGreedyStrategy, UCBStrategy
 from v2x_sim.main import build_strategy, parse_args
 from v2x_sim.thompson import ThompsonSamplingStrategy
 
@@ -33,6 +34,10 @@ def test_build_strategy_variants() -> None:
         build_strategy("threshold_heuristic", threshold_m=6.0), ThresholdHeuristicStrategy
     )
     assert isinstance(build_strategy("thompson", threshold_m=6.0), ThompsonSamplingStrategy)
+    assert isinstance(build_strategy("ucb", threshold_m=6.0), UCBStrategy)
+    assert isinstance(
+        build_strategy("epsilon_greedy", threshold_m=6.0), EpsilonGreedyStrategy
+    )
 
 
 def test_build_strategy_unknown_raises() -> None:
